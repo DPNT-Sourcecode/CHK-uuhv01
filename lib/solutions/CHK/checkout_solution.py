@@ -63,7 +63,6 @@ def checkout(skus):
             
 
     # regular offer
-    
         if sku in offers:
             for offer_req, offer_price in offers[sku]:
                 if quantity >= offer_req:
@@ -78,6 +77,7 @@ def checkout(skus):
     return total
     
     
-checkout('B')
+checkout('A')
+
 
 
