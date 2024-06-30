@@ -54,37 +54,18 @@ def checkout(skus):
                     basket[free_sku] -= free_count
                 else:
                     basket[free_sku] = 0
-    group_count=0
-    for sku, quantity in basket.items():
-        if sku in group_offer:
-            group_count = group_count+quantity
-    # hard code should change
-        if group_count >=3:
-            total_groups = group_count//3
-            # print (total_groups)
-            # print(total)
-            total =+ (total_groups*45)
-            # print(total)
-            total_items_to_remove = total_groups*3
-            while total_items_to_remove > 0:
-                print (total_items_to_remove)
-                print (basket)
-                while['Z'][0] > 0:
-                    basket['Z'] -= 1
-                    total_items_to_remove -= 1
-                while basket['S'] > 0:  # Handle S, T, Y together
-                    basket['S'] -= 1
-                    total_items_to_remove -= 1
-                while basket['T'] > 0:  # Handle S, T, Y together
-                    basket['T'] -= 1
-                    total_items_to_remove -= 1
-                while basket['Y'] > 0:  # Handle S, T, Y together
-                    basket['Y'] -= 1
-                    total_items_to_remove -= 1
-                while basket['X'] > 0:
-                    basket['X'] -= 1
-                    total_items_to_remove -= 1
-                
+
+    # Apply group offers for S, T, X, Y, Z
+    group_count = sum(basket.get(sku, 0) for sku in group_offer)
+    if group_count >= 3:
+        total_groups = group_count // 3
+        total += total_groups * 45
+        total_items_to_remove = total_groups * 3
+        for sku in sorted(group_offer, key=group_offer.get, reverse=True):
+            while total_items_to_remove > 0 and basket.get(sku, 0) > 0:
+                remove_count = min(basket[sku], total_items_to_remove)
+                basket[sku] -= remove_count
+                total_items_to_remove -= remove_count
 
     # Apply special pricing offers
     for sku, quantity in basket.items():
@@ -105,4 +86,13 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+print(checkout("AABBBCCCC"))  # Example test, should apply 3A for 130 and 2B for 45, no offer for C
+print(checkout("AAA"))  # Expected: 130
+print(checkout("AAAAA"))  # Expected: 200
+print(checkout("AABBE"))  # Expected: 175
+print(checkout("EEEEBB"))  # Expected: 160 (2E free 2B)
+print(checkout("FFFF"))  # Expected: 20 (3 for 20, 1 free)
+print(checkout("UUU"))  # Expected: 120 (3U, 1 free U)
+print(checkout("VVVVV"))  # Expected: 220 (3V for 130 and 2V for 90)
+print(checkout("XYZXYZ"))  # Expected: 90 (buy any 3 of (S,T,X,Y,Z) for 45)
 
