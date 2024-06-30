@@ -69,10 +69,9 @@ def checkout(skus):
                     if deal_amt[0]<quantity:
                         best_deal_rate = deal_amt[1]
                         best_deal_num = deal_amt[0]
-                        total += (quantity // best_deal_num) * best_deal_rate
-                        total += (quantity % best_deal_num) * prices[sku]
-                    else:
-                        total += quantity * prices[sku]
+                    total += (quantity // best_deal_num) * best_deal_rate
+                    total += (quantity % best_deal_num) * prices[sku]
+                    
             else:
                 total += quantity * prices[sku]
     print (total)
@@ -80,4 +79,5 @@ def checkout(skus):
     
     
 checkout('A')
+
 
