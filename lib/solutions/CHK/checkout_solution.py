@@ -63,6 +63,7 @@ def checkout(skus):
             
 
     # regular offer
+        best_deal_rate=0
         for sku, quantity in basket_ordered.items():
             if sku in offers:
                 offer_req, offer_tot = offers[sku]
@@ -79,6 +80,7 @@ def checkout(skus):
     
     
 checkout('A')
+
 
 
 
