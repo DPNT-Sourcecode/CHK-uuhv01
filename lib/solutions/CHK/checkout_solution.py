@@ -62,8 +62,11 @@ def checkout(skus):
         if group_count >=3:
             total_groups = group_count//3
             print (total_groups)
-            total = total + (total_groups*45)
+            # print(total)
+            total =+ (total_groups*45)
+            # print(total)
             while total_groups > 0:
+                print (total_groups)
                 if 'Z' in basket and basket['Z'] > 0:
                     basket['Z'] -= 1
                     total_groups -= 1
@@ -95,6 +98,7 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+
 
 
 
