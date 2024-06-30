@@ -1,10 +1,11 @@
 def checkout(skus):
     # Define prices and offers
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40, 'F':10}
     offers = {
         'A': [(5, 200), (3, 130)],
         'B': [(2, 45)],
-        'E': (2, 'B')  # Buy 2 E, get one B free
+        'E': (2, 'B'),  # Buy 2 E, get one B free
+        'F': (2,'F')
     }
     
     # Count the occurrences of each SKU in the basket
@@ -29,6 +30,12 @@ def checkout(skus):
             else:
                 basket['B'] = 0
 
+    # apply BTGOF
+    if 'F' in basket:
+        f_count = basket['F']
+        f_count_by3 = f_count//3
+        basket['B'] = basket['B']-f_count_by3
+
     # Apply special offers and calculate total
     for sku, count in basket.items():
         if sku in offers and sku != 'E':
@@ -42,8 +49,10 @@ def checkout(skus):
             total += count * prices[sku]
         else:
             total += count * prices[sku]
-
+    print (total)
     return total
+
+checkout('F')
 
 
 
