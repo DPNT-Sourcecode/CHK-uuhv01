@@ -63,20 +63,16 @@ def checkout(skus):
             
 
     # regular offer
-        best_deal_rate=0
-        best_deal_num =0
         for sku, quantity in basket_ordered.items():
             if sku in offers:
                 for deal_amt in offers[sku]:
                     if deal_amt[0]<quantity:
                         best_deal_rate = deal_amt[1]
                         best_deal_num = deal_amt[0]
+                        total += (quantity // best_deal_num) * best_deal_rate
+                        total += (quantity % best_deal_num) * prices[sku]
                     else:
-                        break
-                offer_req, offer_tot = offers[sku]
-                # handle multiple offer
-                total += (quantity // best_deal_num) * best_deal_rate
-                total += (quantity % best_deal_num) * prices[sku]
+                        total += quantity * prices[sku]
             else:
                 total += quantity * prices[sku]
     print (total)
@@ -84,9 +80,3 @@ def checkout(skus):
     
     
 checkout('A')
-
-
-
-
-
-
