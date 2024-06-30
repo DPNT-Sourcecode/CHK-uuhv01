@@ -66,6 +66,8 @@ def checkout(skus):
         for sku, quantity in basket_ordered.items():
             if sku in offers:
                 offer_req, offer_tot = offers[sku]
+                # handle mutiple bogofs
+                if quantity > 
                 total += (quantity // offer_req) * offer_tot
                 total += (quantity % offer_req) * prices[sku]
             else:
@@ -75,6 +77,7 @@ def checkout(skus):
     
     
 checkout('A')
+
 
 
 
