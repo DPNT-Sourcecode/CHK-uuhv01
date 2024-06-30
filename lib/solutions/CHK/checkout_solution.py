@@ -56,8 +56,8 @@ def checkout(skus):
         # BOGOF offer calc
         if sku in bogof_offers:
             bogoffs_earned={} 
-            offer_req, offer_sku = bogof_offers[sku]
-            bogoffs_earned[offer_sku]= quantity // offer_req
+            offer_req, free_sku = bogof_offers[sku]
+            bogoffs_earned[free_sku]= quantity // offer_req
             total += (quantity%offer_req) * prices[sku]
             # deduct skus from basket if in bogof
             for bogoffsku, bogoff_quant in bogoffs_earned.items():
@@ -81,6 +81,7 @@ def checkout(skus):
     
     
 checkout('B')
+
 
 
 
