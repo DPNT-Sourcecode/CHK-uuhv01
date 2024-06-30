@@ -68,8 +68,8 @@ def checkout(skus):
                 for deal_types in offers[sku]:
                     # if deal_types[0]>quantity:
                     #     total += quantity * prices[sku]
-                    # if deal_types[0]<quantity:
-                    #     # quantity at differnt rates
+                    if deal_types[0]<quantity:
+                        # quantity at differnt rates
                         BR = (quantity//deal_types[-1][0])*deal_types[-1][1]
                         remaining = quantity%deal_types[-1][0]
                         MR = (remaining//deal_types[-2][0])*deal_types[-2][1]
@@ -83,4 +83,5 @@ def checkout(skus):
     
     
 checkout('A')
+
 
