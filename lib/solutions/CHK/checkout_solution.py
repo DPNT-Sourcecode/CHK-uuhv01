@@ -69,24 +69,22 @@ def checkout(skus):
             while total_items_to_remove > 0:
                 print (total_items_to_remove)
                 print (basket)
-                if 'Z' in basket and basket['Z'] > 0:
+                while['Z'][0] > 0:
                     basket['Z'] -= 1
                     total_items_to_remove -= 1
-                elif sku in ['S'] and basket['S'] > 0:  # Handle S, T, Y together
+                while basket['S'] > 0:  # Handle S, T, Y together
                     basket['S'] -= 1
                     total_items_to_remove -= 1
-                elif sku in ['T'] and basket['T'] > 0:  # Handle S, T, Y together
+                while basket['T'] > 0:  # Handle S, T, Y together
                     basket['T'] -= 1
                     total_items_to_remove -= 1
-                elif sku in ['Y'] and basket['Y'] > 0:  # Handle S, T, Y together
+                while basket['Y'] > 0:  # Handle S, T, Y together
                     basket['Y'] -= 1
                     total_items_to_remove -= 1
-                elif sku == 'X' and basket['X'] > 0:
+                while basket['X'] > 0:
                     basket['X'] -= 1
                     total_items_to_remove -= 1
-                else:
-                    print('broke')
-                    break
+                
 
     # Apply special pricing offers
     for sku, quantity in basket.items():
@@ -107,3 +105,4 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+
