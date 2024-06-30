@@ -25,4 +25,4 @@ def hello(friend_name):
 #  - The message should be "Hello, World!".
     msg = f'Hello, {friend_name}!'
     print(msg)
-    return 'msg'
+    return msg
