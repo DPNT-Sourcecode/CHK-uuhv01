@@ -67,8 +67,10 @@ def checkout(skus):
             if sku in offers:
                 offer_req, offer_tot = offers[sku]
                 # handle multiple offer
-                if quantity > offers[sku][0][0] and offers[sku][1][0]:
-                    try 
+                for deal_amt in offers[sku]:
+                    if deal_amt<quantity:
+                        best_deal_amt =deal_amt
+                        best_deal_price = offers
                 total += (quantity // offer_req) * offer_tot
                 total += (quantity % offer_req) * prices[sku]
             else:
@@ -78,3 +80,4 @@ def checkout(skus):
     
     
 checkout('A')
+
