@@ -39,7 +39,7 @@ def checkout(skus):
     prices = {'A': 50, 'B': 30, 'C': 20, 'D':15, 'E':50}
     # create a dictionary to store the special offers and prices
     offers = {'A': [(3,130),(5,200)], 'B': (2,45)}
-    bogof_offers =  { 'E':(2,'B')}
+    bogof_offers = {'E': (2, 'B')}
     # create a dictionary to count occurences of each letter
     # group letters if deal
     basket_ordered = {}
@@ -55,7 +55,9 @@ def checkout(skus):
     for sku, quantity in basket_ordered.items():
         # BOGOF offer calc
         if sku in bogof_offers:
+            # dic to count bogoffs earned
             bogoffs_earned={} 
+            
             bo_offer_req, free_sku = bogof_offers[sku]
             bogoffs_earned[free_sku]= quantity // bo_offer_req
             total += (quantity%bo_offer_req) * prices[sku]
@@ -81,12 +83,3 @@ def checkout(skus):
     
     
 checkout('B')
-
-
-
-
-
-
-
-
-
