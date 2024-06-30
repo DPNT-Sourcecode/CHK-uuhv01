@@ -83,20 +83,24 @@ def checkout(skus):
                 else:
                     basket[free_sku] = 0
 
-    # Apply special offers and calculate total
-    for sku, count in basket.items():
-        if sku in offers and sku not in ('E'):
-            item_offers = offers[sku]
-            item_offers.sort(reverse=True, key=lambda x: x[0])  # Apply largest offer first
-            for qty, price in item_offers:
-                if count >= qty:
-                    offer_count = count // qty
-                    total += offer_count * price
-                    count %= qty
-            total += count * prices[sku]
-        else:
-            total += count * prices[sku]
-    print (total)
+   # Apply special pricing offers
+    for sku, offer in offers.items():
+        if isinstance(offer, list):
+            quantity = basket.get(sku, 0)
+            for min_qty, offer_price in sorted(offer, reverse=True):
+                if quantity >= min_qty:
+                    offer_count = quantity // min_qty
+                    total += offer_count * offer_price
+                    quantity -= offer_count * min_qty
+            total += quantity * prices[sku]
+        elif isinstance(offer, tuple) and sku in basket:
+            total += basket[sku] * prices[sku]
+
+    # Add prices for items without special offers
+    for sku, quantity in basket.items():
+        if sku not in offers:
+            total += quantity * prices[sku]
+
     return total
 
 checkout('FFFFFF')
