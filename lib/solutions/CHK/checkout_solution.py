@@ -69,7 +69,7 @@ def checkout(skus):
                 # handle multiple offer
                 for deal_amt in offers[sku]:
                     if deal_amt<quantity:
-                        best_deal_amt =deal_amt
+                        best_deal_amt[0] =deal_amt
                         best_deal_price = offers
                 total += (quantity // offer_req) * offer_tot
                 total += (quantity % offer_req) * prices[sku]
@@ -80,4 +80,5 @@ def checkout(skus):
     
     
 checkout('A')
+
 
