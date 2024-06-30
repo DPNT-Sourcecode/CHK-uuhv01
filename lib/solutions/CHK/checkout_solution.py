@@ -52,7 +52,6 @@ def checkout(skus):
             basket_ordered[sku] = 1
     # apply bulk discount where possible
     total = 0
-    print (basket_ordered)
     for sku, quantity in basket_ordered.items():
         # BOGOF offer calc
         if sku in bogof_offers:
@@ -76,12 +75,12 @@ def checkout(skus):
         else:
 
             total += quantity*prices[sku]
-    print(123)
     print (total)
     return total
     
     
-checkout('')
+checkout('A')
+
 
 
 
