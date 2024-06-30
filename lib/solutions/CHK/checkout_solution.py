@@ -43,6 +43,7 @@ def checkout(skus):
     # create a dictionary to count occurences of each letter
     # group letters if deal
     basket_ordered = {}
+    total = 0
     for sku in skus:
         if sku not in ('A','B','C','D','E'):
             return -1
@@ -50,8 +51,7 @@ def checkout(skus):
             basket_ordered[sku] += 1
         else:
             basket_ordered[sku] = 1
-        # apply bulk discount where possible
-        total = 0
+        # apply bulk discount where possible   
     for sku, quantity in basket_ordered.items():
         # BOGOF offer calc
         if sku in bogof_offers:
@@ -80,4 +80,5 @@ def checkout(skus):
     
     
 checkout('E')
+
 
