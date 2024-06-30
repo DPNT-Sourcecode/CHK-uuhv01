@@ -65,7 +65,7 @@ def checkout(skus):
     # regular offer
         for sku, quantity in basket_ordered.items():
             if sku in offers:
-                # for deal_types in offers[sku]:
+                for deal_types in offers[sku]:
                     # if deal_types[0]>quantity:
                     #     total += quantity * prices[sku]
                     # if deal_types[0]<quantity:
@@ -83,3 +83,4 @@ def checkout(skus):
     
     
 checkout('A')
+
