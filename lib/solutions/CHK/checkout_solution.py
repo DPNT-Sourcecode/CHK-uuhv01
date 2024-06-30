@@ -77,4 +77,3 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
-
