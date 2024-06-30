@@ -38,6 +38,7 @@
 def checkout(skus):
     # separate string to letters
     skus = list(skus)
+
     # create a dictionary to store the prices of each letter
     prices = {'A': 50, 'B': 30, 'C': 20, 'D':15}
     # create a dictionary to store the special offers and prices
@@ -46,6 +47,8 @@ def checkout(skus):
     # group letters if deal
     basket_ordered = {}
     for sku in skus:
+        if sku !=('A','B','C','D'):
+            return -1
         if sku in basket_ordered:
             basket_ordered[sku] += 1
         else:
@@ -62,14 +65,6 @@ def checkout(skus):
             total += quantity*prices[sku]
     print (total)
     return total
-               
-
-   
-              
-
+    
     
 
-    # calc cost of items
-
-
-    
