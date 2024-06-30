@@ -61,21 +61,23 @@ def checkout(skus):
     # hard code should change
         if group_count >=3:
             total_groups = group_count//3
-            print (total_groups)
+            # print (total_groups)
             # print(total)
             total =+ (total_groups*45)
             # print(total)
-            while total_groups > 0:
-                print (total_groups)
+            total_items_to_remove = total_groups*3
+            while total_items_to_remove > 0:
+                print (total_items_to_remove)
+                print (basket)
                 if 'Z' in basket and basket['Z'] > 0:
                     basket['Z'] -= 1
-                    total_groups -= 1
+                    total_items_to_remove -= 1
                 elif sku in ['S', 'T', 'Y'] and basket[sku] > 0:  # Handle S, T, Y together
                     basket[sku] -= 1
-                    total_groups -= 1
+                    total_items_to_remove -= 1
                 elif sku == 'X' and basket['X'] > 0:
                     basket['X'] -= 1
-                    total_groups -= 1
+                    total_items_to_remove -= 1
                 else:
                     break
 
@@ -98,6 +100,7 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+
 
 
 
