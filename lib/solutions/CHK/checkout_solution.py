@@ -1,90 +1,50 @@
-# CHK_R2
-# ROUND 2 - More offers
-# The checkout feature is great and our supermarket is doing fine. Is time to think about growth.
-# Our marketing teams wants to experiment with new offer types and we should do our best to support them.
-
-# We are going to sell a new item E.
-# Normally E costs 40, but if you buy 2 of Es you will get B free. How cool is that ? Multi-priced items also seemed to work well so we should have more of these.
-
-# Our price table and offers: 
-# +------+-------+------------------------+
-# | Item | Price | Special offers         |
-# +------+-------+------------------------+
-# | A    | 50    | 3A for 130, 5A for 200 |
-# | B    | 30    | 2B for 45              |
-# | C    | 20    |                        |
-# | D    | 15    |                        |
-# | E    | 40    | 2E get one B free      |
-# +------+-------+------------------------+
-
-
-# Notes: 
-#  - The policy of the supermarket is to always favor the customer when applying special offers.
-#  - All the offers are well balanced so that they can be safely combined.
-#  - For any illegal input return -1
-
-# In order to complete the round you need to implement the following method:
-#      checkout(String) -> Integer
-
-# Where:
-#  - param[0] = a String containing the SKUs of all the products in the basket
-#  - @return = an Integer representing the total checkout value of the items 
-
-
 def checkout(skus):
-    # separate string to letters
-    skus = list(skus)
-
-    # create a dictionary to store the prices of each letter
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D':15, 'E':50}
-    # create a dictionary to store the special offers and prices
-    offers = {'A': [(3,130),(5,200)], 'B': [(2,45)]}
-    bogof_offers = {'E': (2, 'B')}
-    # create a dictionary to count occurences of each letter
-    # group letters if deal
-    basket_ordered = {}
-    total = 0
+    # Define prices and offers
+    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15, 'E': 40}
+    offers = {
+        'A': [(5, 200), (3, 130)],
+        'B': [(2, 45)],
+        'E': (2, 'B')  # Buy 2 E, get one B free
+    }
+    
+    # Count the occurrences of each SKU in the basket
+    basket = {}
     for sku in skus:
-        if sku not in ('A','B','C','D','E'):
+        if sku not in prices:
             return -1
-        if sku in basket_ordered:
-            basket_ordered[sku] += 1
+        if sku in basket:
+            basket[sku] += 1
         else:
-            basket_ordered[sku] = 1
-        # apply bulk discount where possible   
-    for sku, quantity in basket_ordered.items():
-        # BOGOF offer calc
-        if sku in bogof_offers:
-            offer_req, free_sku = bogof_offers[sku]
-            if free_sku in basket_ordered:
-                free_items = quantity // offer_req
-                total += (quantity - free_items) * prices[sku]  # Pay for E
-                basket_ordered[free_sku] -= free_items  # Deduct free items of B
-            
+            basket[sku] = 1
 
-    # regular offer
-        for sku, quantity in basket_ordered.items():
-            if sku in offers:
-                for deal_types in offers[sku]:
-                    # if deal_types[0]>quantity:
-                    #     total += quantity * prices[sku]
-                    if deal_types[0]<quantity:
-                        # quantity at differnt rates
-                        BR = (quantity//deal_types[-1][0])*deal_types[-1][1]
-                        remaining = quantity%deal_types[-1][0]
-                        MR = (remaining//deal_types[-2][0])*deal_types[-2][1]
-                        NR = (remaining%deal_types[-2][0])* prices[sku]
-                        total += BR+MR+NR
-                    else:
-                        total += quantity * prices[sku]
-                    
+    total = 0
+
+    # Apply BOGOF offers first
+    if 'E' in basket:
+        e_count = basket['E']
+        if 'B' in basket:
+            free_b_count = e_count // 2
+            if basket['B'] > free_b_count:
+                basket['B'] -= free_b_count
             else:
-                total += quantity * prices[sku]
-    print (total)
+                basket['B'] = 0
+
+    # Apply special offers and calculate total
+    for sku, count in basket.items():
+        if sku in offers and sku != 'E':
+            item_offers = offers[sku]
+            item_offers.sort(reverse=True, key=lambda x: x[0])  # Apply largest offer first
+            for qty, price in item_offers:
+                if count >= qty:
+                    offer_count = count // qty
+                    total += offer_count * price
+                    count %= qty
+            total += count * prices[sku]
+        else:
+            total += count * prices[sku]
+
     return total
-    
-    
-checkout('A')
+
 
 
 
