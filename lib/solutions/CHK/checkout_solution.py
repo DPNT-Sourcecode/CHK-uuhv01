@@ -40,8 +40,8 @@ def checkout(skus):
     skus = list(skus)
     # create a dictionary to store the prices of each letter
     prices = {'A': 50, 'B': 30, 'C': 20, 'D':15}
-    # create a dictionary to store the special offers
-    offers = {'A': 3, 'B': 2}
+    # create a dictionary to store the special offers and prices
+    offers = {'A': (3,130), 'B': (2,45)}
     # create a dictionary to count occurences of each letter
     # group letters if deal
     basket_ordered = {}
@@ -52,14 +52,15 @@ def checkout(skus):
             basket_ordered[sku] = 1
     # apply bulk discount where possible
     total = 0
+    print (basket_ordered)
     for sku, quantity in basket_ordered:
         if sku in offers:
-            if basket_ordered[sku] >= offers[sku]:
-                basket_ordered[sku] = basket_ordered[sku] // offers[sku]
-                print(basket_ordered)
-                basket_ordered[sku] = basket_ordered[sku] * offers[sku]
-                print(basket_ordered)
-
+            offer_req, offer_tot = offers[sku]
+            total += (quantity // offer_req[sku])*offer_tot
+            total += (quantity%offer_req) * prices[sku]
+        else:
+            total += quantity*prices[sku]
+    print (total)
                
 
 checkout(skus)
@@ -72,6 +73,7 @@ checkout(skus)
 
 
     
+
 
 
 
