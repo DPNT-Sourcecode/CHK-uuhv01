@@ -32,7 +32,7 @@
 # Where:
 #  - param[0] = a String containing the SKUs of all the products in the basket
 #  - @return = an Integer representing the total checkout value of the items 
-skus = 'AAABBCCAA'
+# skus = 'AAABBCCAA'
 
 
 def checkout(skus):
@@ -61,9 +61,9 @@ def checkout(skus):
         else:
             total += quantity*prices[sku]
     print (total)
+    return total
                
 
-checkout(skus)
    
               
 
@@ -73,9 +73,3 @@ checkout(skus)
 
 
     
-
-
-
-
-
-
