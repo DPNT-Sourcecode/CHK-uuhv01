@@ -47,7 +47,7 @@ def checkout(skus):
     # group letters if deal
     basket_ordered = {}
     for sku in skus:
-        if sku !=('A','B','C','D'):
+        if sku not in ('A','B','C','D'):
             return -1
         if sku in basket_ordered:
             basket_ordered[sku] += 1
@@ -67,4 +67,5 @@ def checkout(skus):
     return total
     
     
+
 
