@@ -33,7 +33,7 @@
 #  - param[0] = a String containing the SKUs of all the products in the basket
 #  - @return = an Integer representing the total checkout value of the items 
 skus = 'abcdaabcd'
-print(list(skus))
+
 
 def checkout(skus):
     # separate string to letters
@@ -42,8 +42,17 @@ def checkout(skus):
     prices = {'A': 50, 'B': 30, 'C': 20, 'D':15}
     # create a dictionary to store the special offers
     offers = {'A': 3, 'B': 2}
-    # create a dictionary to store the total price of each letter
-    total = {}
+    # create a dictionary to count occurences of each letter
+    basket_ordered = {}
+    for sku in skus:
+        if sku in basket_ordered:
+            basket_ordered[sku] += 1
+        else:
+            basket_ordered[sku] = 1
+    print(basket_ordered)
+
+
+checkout(skus)
    
               
 
@@ -53,4 +62,5 @@ def checkout(skus):
 
 
     
+
 
