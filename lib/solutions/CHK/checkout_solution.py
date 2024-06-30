@@ -53,9 +53,9 @@ def checkout(skus):
                 else:
                     basket[free_sku] = 0
 
-      # Handle group discount for SKUs S, T, X, Y, Z
+          # Handle group discount for SKUs S, T, X, Y, Z
     group_skus = ['S', 'T', 'X', 'Y', 'Z']
-    group_count = sum(basket[sku] for sku in group_skus)
+    group_count = sum(basket.get(sku, 0) for sku in group_skus)  # Use get() to avoid KeyError
     
     if group_count >= 3:
         total_groups = group_count // 3
@@ -63,7 +63,7 @@ def checkout(skus):
         
         # Reduce quantities in basket for group discount
         for sku in group_skus:
-            while total_groups > 0 and basket[sku] > 0:
+            while total_groups > 0 and basket.get(sku, 0) > 0:  # Use get() to avoid KeyError
                 basket[sku] -= 1
                 total_groups -= 1
                 group_count -= 1
@@ -110,5 +110,6 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+
 
 
