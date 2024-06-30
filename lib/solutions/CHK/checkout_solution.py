@@ -80,6 +80,3 @@ def checkout(skus):
     
     
 checkout('ABCDECBAABCABBAAAEEAA')
-
-
-
