@@ -23,5 +23,6 @@ def hello(friend_name):
 #  - param[0] = a String. Ignore for now.
 #  - @return = a String containing a message
 #  - The message should be "Hello, World!".
-    print('Hello, World!')
-    return 'Hello, World!'
+    msg = f'Hello, {friend_name}!'
+    print(msg)
+    return 'msg'
