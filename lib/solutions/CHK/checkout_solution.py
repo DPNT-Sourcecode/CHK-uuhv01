@@ -73,8 +73,10 @@ def checkout(skus):
                         BR = (quantity//deal_types[-1][0])*deal_types[-1][1]
                         remaining = quantity%deal_types[-1][0]
                         MR = (remaining//deal_types[-2][0])*deal_types[-2][1]
-                        NR = (remaining%deal_types[-2][0])** prices[sku]
+                        NR = (remaining%deal_types[-2][0])* prices[sku]
                         total += BR+MR+NR
+                    else:
+                        total += quantity * prices[sku]
                     
             else:
                 total += quantity * prices[sku]
@@ -83,5 +85,6 @@ def checkout(skus):
     
     
 checkout('A')
+
 
 
