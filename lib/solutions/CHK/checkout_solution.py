@@ -32,7 +32,7 @@
 # Where:
 #  - param[0] = a String containing the SKUs of all the products in the basket
 #  - @return = an Integer representing the total checkout value of the items 
-skus = 'abcdaabcd'
+skus = 'AAABBCCAA'
 
 
 def checkout(skus):
@@ -53,10 +53,10 @@ def checkout(skus):
     # apply bulk discount where possible
     total = 0
     print (basket_ordered)
-    for sku, quantity in basket_ordered:
+    for sku, quantity in basket_ordered.items():
         if sku in offers:
             offer_req, offer_tot = offers[sku]
-            total += (quantity // offer_req[sku])*offer_tot
+            total += (quantity // offer_req)*offer_tot
             total += (quantity%offer_req) * prices[sku]
         else:
             total += quantity*prices[sku]
@@ -73,6 +73,7 @@ checkout(skus)
 
 
     
+
 
 
 
