@@ -65,14 +65,16 @@ def checkout(skus):
     # regular offer
         for sku, quantity in basket_ordered.items():
             if sku in offers:
-                for deal_amt in offers[sku]:
-                    if deal_amt[0]>quantity:
-                        total += quantity * prices[sku]
-                    if deal_amt[0]<quantity:
-                        best_deal_rate = deal_amt[1]
-                        best_deal_num = deal_amt[0]
-                    total += (quantity // best_deal_num) * best_deal_rate
-                    total += (quantity % best_deal_num) * prices[sku]
+                # for deal_types in offers[sku]:
+                    # if deal_types[0]>quantity:
+                    #     total += quantity * prices[sku]
+                    # if deal_types[0]<quantity:
+                    #     # quantity at differnt rates
+                        BR = (quantity//deal_types[-1][0])*deal_types[-1][1]
+                        remaining = quantity%deal_types[-1][0]
+                        MR = (remaining//deal_types[-2][0])*deal_types[-2][1]
+                        NR = (remaining%deal_types[-2][0])** prices[sku]
+                        total += BR+MR+NR
                     
             else:
                 total += quantity * prices[sku]
@@ -81,6 +83,3 @@ def checkout(skus):
     
     
 checkout('A')
-
-
-
