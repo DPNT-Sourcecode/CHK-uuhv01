@@ -43,24 +43,35 @@ def checkout(skus):
     # create a dictionary to store the special offers
     offers = {'A': 3, 'B': 2}
     # create a dictionary to count occurences of each letter
+    # group letters if deal
     basket_ordered = {}
     for sku in skus:
         if sku in basket_ordered:
             basket_ordered[sku] += 1
         else:
             basket_ordered[sku] = 1
-    print(basket_ordered)
+    # apply bulk discount where possible
+    for sku, quantity in basket_ordered:
+        print(basket_ordered[sku])
+        if sku in offers:
+            if basket_ordered[sku] >= offers[sku]:
+                basket_ordered[sku] = basket_ordered[sku] // offers[sku]
+                print(basket_ordered)
+                basket_ordered[sku] = basket_ordered[sku] * offers[sku]
+                print(basket_ordered)
 
+               
 
 checkout(skus)
    
               
 
-    # group letters if deal
+    
 
     # calc cost of items
 
 
     
+
 
 
