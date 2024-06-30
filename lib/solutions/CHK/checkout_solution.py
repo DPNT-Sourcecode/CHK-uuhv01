@@ -30,6 +30,8 @@ def checkout(skus):
         'Z': (3, 45)
     }
 
+    group_offer= {'S': 20, 'T': 20, 'X': 17, 'Y': 20, 'Z': 21}
+
     # Count the occurrences of each SKU in the basket
     basket = {}
     for sku in skus:
@@ -52,44 +54,27 @@ def checkout(skus):
                     basket[free_sku] -= free_count
                 else:
                     basket[free_sku] = 0
-
-          # Handle group discount for SKUs S, T, X, Y, Z
-    group_skus = ['S', 'T', 'X', 'Y', 'Z']
-    group_count = sum(basket.get(sku, 0) for sku in group_skus)  # Use get() to avoid KeyError
-    
-    if group_count >= 3:
-        total_groups = group_count // 3
-        total += total_groups * 45
-        
-        # Reduce quantities in basket for group discount
-        for sku in group_skus:
-            while total_groups > 0 and basket.get(sku, 0) > 0:  # Use get() to avoid KeyError
-                basket[sku] -= 1
-                total_groups -= 1
-                group_count -= 1
-    
-    
-    # for sku, quantity in basket.items():
-    #     group_skus = ['S', 'T', 'X', 'Y', 'Z']
-    #     group_count=0
-    #     if sku in group_skus:
-    #         group_count = group_count+quantity
-    #         # hard code should change
-    #         if group_count >=3:
-    #             total_groups = group_count//3
-    #             total = total + (total_groups*45)
-    #             while total_groups > 0:
-    #                 if 'Z' in basket and basket['Z'] > 0:
-    #                     basket['Z'] -= 1
-    #                     total_groups -= 1
-    #                 elif sku in ['S', 'T', 'Y'] and basket[sku] > 0:  # Handle S, T, Y together
-    #                     basket[sku] -= 1
-    #                     total_groups -= 1
-    #                 elif sku == 'X' and basket['X'] > 0:
-    #                     basket['X'] -= 1
-    #                     total_groups -= 1
-    #                 else:
-    #                     break
+    group_count=0
+    for sku, quantity in basket.items():
+        if sku in group_offer:
+            group_count = group_count+quantity
+    # hard code should change
+        if group_count >=3:
+            total_groups = group_count//3
+            print (total_groups)
+            total = total + (total_groups*45)
+            while total_groups > 0:
+                if 'Z' in basket and basket['Z'] > 0:
+                    basket['Z'] -= 1
+                    total_groups -= 1
+                elif sku in ['S', 'T', 'Y'] and basket[sku] > 0:  # Handle S, T, Y together
+                    basket[sku] -= 1
+                    total_groups -= 1
+                elif sku == 'X' and basket['X'] > 0:
+                    basket['X'] -= 1
+                    total_groups -= 1
+                else:
+                    break
 
     # Apply special pricing offers
     for sku, quantity in basket.items():
@@ -110,6 +95,7 @@ def checkout(skus):
 print(checkout("STX"))  # Expected: 45
 print(checkout("STXSTX"))  # Expected: 90
 print(checkout("SSS"))  # Expected: 45
+
 
 
 
