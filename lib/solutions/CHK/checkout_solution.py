@@ -14,7 +14,7 @@ def checkout(skus):
         'A': [(5, 200), (3, 130)],
         'B': [(2, 45)],
         'E': (2, 'B'),  # Buy 2 E, get one B free
-        'F': [(3, 20)],   # Buy 3 F, pay for 2
+        'F': (3, 20),   # Buy 3 F, pay for 2
         'H': [(10, 80), (5, 45)],
         'K': [(2, 120)],
         'N': (3, 'M'),  # Buy 3 N, get one M free
@@ -59,22 +59,22 @@ def checkout(skus):
                 total += (group_count // offer) * 45
 
     # Apply special pricing offers
-    for sku, offer in offers.items():
-        if isinstance(offer, list):
-            quantity = basket.get(sku, 0)
-            for min_qty, offer_price in sorted(offer, reverse=True):
+    for sku, quantity in basket.items():
+        if sku in offers and isinstance(offers[sku], list):
+            for deal in offers[sku]:
+                min_qty, deal_price = deal
                 if quantity >= min_qty:
                     offer_count = quantity // min_qty
-                    total += offer_count * offer_price
+                    total += offer_count * deal_price
                     quantity -= offer_count * min_qty
             total += quantity * prices[sku]
-        elif isinstance(offer, tuple) and sku in basket:
-            total += basket[sku] * prices[sku]
-
-    # Add prices for items without special offers
-    for sku, quantity in basket.items():
-        if sku not in offers:
+        else:
             total += quantity * prices[sku]
 
     return total
+
+# Test the updated checkout function
+print(checkout("STX"))  # Expected: 45
+print(checkout("STXSTX"))  # Expected: 90
+print(checkout("SSS"))  # Expected: 45
 

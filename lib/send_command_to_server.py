@@ -29,7 +29,7 @@ from runner.user_input_action import get_user_input
     The interaction follows a request-response pattern:
          * You are presented with your current progress and a list of actions.
          * You trigger one of the actions by typing it on the console.
-         * After the action feedback is presented, the execution will stop.
+       de  * After the action feedback is presented, the execution will stop.
  deploy
     +------+-----------------------------------------------------------------------+
     | Step | The usual workflow                                                    |
