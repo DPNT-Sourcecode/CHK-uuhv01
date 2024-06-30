@@ -67,9 +67,10 @@ def checkout(skus):
     # regular offer
     
         if sku in offers:
-            offer_req, offer_tot = offers[sku]
-            total += (quantity // offer_req)*offer_tot
-            total += (quantity%offer_req) * prices[sku]
+            for offer_req, offer_tot in offers[sku]:
+                if quantity >= offer_req:
+                    total += (quantity // offer_req)*offer_tot
+                    total += (quantity%offer_req) * prices[sku]
     
     # remaining items
         else:
@@ -80,6 +81,7 @@ def checkout(skus):
     
     
 checkout('A')
+
 
 
 
