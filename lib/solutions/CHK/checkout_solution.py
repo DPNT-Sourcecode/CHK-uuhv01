@@ -34,11 +34,11 @@ def checkout(skus):
     if 'F' in basket:
         f_count = basket['F']
         f_count_by3 = f_count//3
-        basket['B'] = basket['B']-f_count_by3
+        basket['F'] = basket['F']-f_count_by3
 
     # Apply special offers and calculate total
     for sku, count in basket.items():
-        if sku in offers and sku != 'E':
+        if sku in offers and sku not in ('E','F'):
             item_offers = offers[sku]
             item_offers.sort(reverse=True, key=lambda x: x[0])  # Apply largest offer first
             for qty, price in item_offers:
@@ -52,8 +52,4 @@ def checkout(skus):
     print (total)
     return total
 
-checkout('F')
-
-
-
-
+checkout('FFFFFF')
