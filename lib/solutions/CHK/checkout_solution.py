@@ -14,7 +14,7 @@ def checkout(skus):
         'A': [(5, 200), (3, 130)],
         'B': [(2, 45)],
         'E': (2, 'B'),  # Buy 2 E, get one B free
-        'F': (3, 20),   # Buy 3 F, pay for 2
+        'F': [(3, 20)],   # Buy 3 F, pay for 2
         'H': [(10, 80), (5, 45)],
         'K': [(2, 120)],
         'N': (3, 'M'),  # Buy 3 N, get one M free
@@ -79,20 +79,8 @@ def checkout(skus):
             total += quantity * prices[sku]
         else:
             total += quantity * prices[sku]
-
+    print (total)
     return total
+checkout("FFFFFF")
 
-# Test the updated checkout function
-print(checkout("STX"))  # Expected: 45
-print(checkout("STXSTX"))  # Expected: 90
-print(checkout("SSS"))  # Expected: 45
-print(checkout("AABBBCCCC"))  # Example test, should apply 3A for 130 and 2B for 45, no offer for C
-print(checkout("AAA"))  # Expected: 130
-print(checkout("AAAAA"))  # Expected: 200
-print(checkout("AABBE"))  # Expected: 175
-print(checkout("EEEEBB"))  # Expected: 160 (2E free 2B)
-print(checkout("FFFF"))  # Expected: 20 (3 for 20, 1 free)
-print(checkout("UUU"))  # Expected: 120 (3U, 1 free U)
-print(checkout("VVVVV"))  # Expected: 220 (3V for 130 and 2V for 90)
-print(checkout("XYZXYZ"))  # Expected: 90 (buy any 3 of (S,T,X,Y,Z) for 45)
 
