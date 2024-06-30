@@ -79,4 +79,5 @@ def checkout(skus):
     return total
     
     
-checkout('A')
+checkout('E')
+
