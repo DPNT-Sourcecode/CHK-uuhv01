@@ -51,8 +51,8 @@ def checkout(skus):
         else:
             basket_ordered[sku] = 1
     # apply bulk discount where possible
+    total = 0
     for sku, quantity in basket_ordered:
-        print(basket_ordered[sku])
         if sku in offers:
             if basket_ordered[sku] >= offers[sku]:
                 basket_ordered[sku] = basket_ordered[sku] // offers[sku]
@@ -72,6 +72,7 @@ checkout(skus)
 
 
     
+
 
 
 
