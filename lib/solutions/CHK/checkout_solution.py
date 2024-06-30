@@ -100,7 +100,7 @@ def checkout(skus):
     for sku, quantity in basket.items():
         if sku not in offers:
             total += quantity * prices[sku]
-
+    print (total)
     return total
 
-checkout('FFFFFF')
+checkout('UUUU')
